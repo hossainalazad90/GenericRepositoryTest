@@ -1,6 +1,9 @@
 ﻿using GenericRepositoryTest.Context;
 using GenericRepositoryTest.Models;
+<<<<<<< HEAD
 using GenericRepositoryTest.Services;
+=======
+>>>>>>> 589aa55a0d0e77d9b422d78c02b852c7e43fd259
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,6 +17,7 @@ namespace GenericRepositoryTest.Controllers
     {
         // GET: EmployeeController
         ApplicationDBContext _applicationDBContext;
+<<<<<<< HEAD
         private readonly IEmployeeService _employeeService;
 
         public EmployeeController(ApplicationDBContext applicationDBContext, IEmployeeService employeeService )
@@ -26,6 +30,15 @@ namespace GenericRepositoryTest.Controllers
             //var employeeList= _applicationDBContext.Employees.ToList();
 
             var employeeList = _employeeService.GetAll();
+=======
+        public EmployeeController(ApplicationDBContext applicationDBContext)
+        {
+            _applicationDBContext = applicationDBContext;
+        }
+        public ActionResult Index()
+        {
+           var employeeList= _applicationDBContext.Employees.ToList();
+>>>>>>> 589aa55a0d0e77d9b422d78c02b852c7e43fd259
             return View(employeeList);
         }
 

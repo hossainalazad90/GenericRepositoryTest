@@ -2,7 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+<<<<<<< HEAD
     <StartupObject>GenericRepositoryTest.Program</StartupObject>
+=======
+>>>>>>> 589aa55a0d0e77d9b422d78c02b852c7e43fd259
   </PropertyGroup>
 
   <ItemGroup>
