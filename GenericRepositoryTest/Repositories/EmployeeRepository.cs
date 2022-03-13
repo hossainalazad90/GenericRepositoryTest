@@ -9,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace GenericRepositoryTest.Repositories
 {
-<<<<<<< HEAD
+
     public interface IEmployeeRepository :IRepository<Employee> 
-=======
-    interface IEmployeeRepository :IRepository<Employee> 
->>>>>>> 589aa55a0d0e77d9b422d78c02b852c7e43fd259
+
     {
 
     }
