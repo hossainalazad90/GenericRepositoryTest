@@ -1,3 +1,4 @@
+using Autofac;
 using GenericRepositoryTest.Context;
 using GenericRepositoryTest.Repositories;
 using GenericRepositoryTest.Services;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace GenericRepositoryTest
@@ -29,11 +31,20 @@ namespace GenericRepositoryTest
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDBContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            
+
             services.AddScoped<DbContext, ApplicationDBContext>();
-            services.AddScoped<IEmployeeRepository,EmployeeRepository>();            
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddMvc();
+
+            //     var builder = new ContainerBuilder();
+            //     var ass = Assembly.GetExecutingAssembly();
+            //     builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Repository"))
+            //.AsImplementedInterfaces();
+            //     builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Service"))
+            //.AsImplementedInterfaces();
+
+            //     builder.Build();
 
         }
 
