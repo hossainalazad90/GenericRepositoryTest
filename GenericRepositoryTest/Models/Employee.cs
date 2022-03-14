@@ -1,13 +1,14 @@
-﻿using System;
+﻿using GenericRepositoryTest.Models.AuditableEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace GenericRepositoryTest.Models
 {
-    public class Employee
+    public class Employee:AuditableEntity<int>
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
 
         public string FirstName { get; set; }
 
