@@ -80,7 +80,7 @@ namespace GenericRepositoryTest.Controllers
                 _applicationDBContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
                 return View(employee);
             }
@@ -100,10 +100,10 @@ namespace GenericRepositoryTest.Controllers
         {
             try
             {
-                _applicationDBContext.Remove(id);
+                _employeeService.Remove(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch( Exception e)
             {
                 return View();
             }

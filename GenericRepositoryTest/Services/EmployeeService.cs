@@ -14,7 +14,7 @@ namespace GenericRepositoryTest.Services
     public interface IEmployeeService
     {
         List<Employee> GetAll();
-
+        void Remove(int id);
     }
 
     public class EmployeeService: IEmployeeService
@@ -32,5 +32,11 @@ namespace GenericRepositoryTest.Services
            return _employee.GetAll().ToList();
         }
 
+        public void Remove(int id)
+        {
+            var res = _employee.FirstOrDefault(f => f.Id == id);
+            _employee.Delete(res);
+            
+        }
     }
 }

@@ -21,11 +21,13 @@ namespace GenericRepositoryTest.GenericRepository
         public void Add(T entity)
         {
             _dbSet.Add(entity);
+            Commit();
         }
 
         public void Delete(T entity)
         {
             _dbSet.Remove(entity);
+            Commit();
         }
 
         public void Delete(Expression<Func<T, bool>> where)
@@ -33,11 +35,13 @@ namespace GenericRepositoryTest.GenericRepository
             IEnumerable<T> objects =_dbSet.Where(where).AsEnumerable();
             foreach (T obj in objects)
                 _dbSet.Remove(obj);
+            Commit();
         }
 
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
+            Commit();
         }
 
         public T Get(int id)
@@ -99,19 +103,20 @@ namespace GenericRepositoryTest.GenericRepository
         public async Task AddAsync(T entity)
         {
            await _dbSet.AddAsync(entity);
-            
+            await CommitAsync();
+
         }
 
         public async  Task UpdateAsync(T entity)
         {
              _context.Entry(entity).State = EntityState.Modified;
-             await _context.SaveChangesAsync();
+            await CommitAsync();
         }
 
         public async Task DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
-           await _context.SaveChangesAsync();
+            await CommitAsync();
         }
 
         public async Task DeleteAsync(Expression<Func<T, bool>> where)
@@ -119,23 +124,36 @@ namespace GenericRepositoryTest.GenericRepository
             IEnumerable<T> objects = _dbSet.Where(where).AsEnumerable();
             foreach (T obj in objects)
                 _dbSet.Remove(obj);
-           await _context.SaveChangesAsync();
+           await CommitAsync();
 
         }
         public void AddMultiple(IEnumerable<T> list)
         {
             _context.Set<T>().AddRange(list);
+            Commit();
         }
 
         public void DeleteMultiple(IEnumerable<T> list)
         {
             _context.Set<T>().RemoveRange(list);
+            Commit();
         }
 
         public int ExecuteCommand(string sqlCommand, params object[] parameters)
         {
             return _context.Database.ExecuteSqlRaw(sqlCommand, parameters);
         }
+
+        public async Task CommitAsync()
+        {
+            await _context.SaveChangesAsync();
+           
+        }
+        public  void Commit()
+        {
+             _context.SaveChanges();
+        }
+
 
 
 
