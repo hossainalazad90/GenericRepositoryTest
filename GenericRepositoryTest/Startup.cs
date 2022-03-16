@@ -31,11 +31,11 @@ namespace GenericRepositoryTest
         {
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDBContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            
 
             services.AddScoped<DbContext, ApplicationDBContext>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();            
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddMvc();
 
