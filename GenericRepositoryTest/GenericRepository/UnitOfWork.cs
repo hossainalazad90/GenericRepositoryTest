@@ -16,12 +16,30 @@ namespace GenericRepositoryTest.GenericRepository
         }
         public int Commit()
         {
-           return _context.SaveChanges();
+            try
+            {
+                return _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+          
         }
 
         public Task<int> CommitAsync()
         {
-            return _context.SaveChangesAsync();
+            try
+            {
+                return _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
 
         public void Dispose()

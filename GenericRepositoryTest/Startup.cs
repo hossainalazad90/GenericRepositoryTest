@@ -1,5 +1,6 @@
 using Autofac;
 using GenericRepositoryTest.Context;
+using GenericRepositoryTest.GenericRepository;
 using GenericRepositoryTest.Repositories;
 using GenericRepositoryTest.Services;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +35,7 @@ namespace GenericRepositoryTest
 
             services.AddScoped<DbContext, ApplicationDBContext>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddMvc();
 

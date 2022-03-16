@@ -19,11 +19,12 @@ namespace GenericRepositoryTest.Services
 
     public class EmployeeService: IEmployeeService
     {
-
-        IEmployeeRepository _employee;
-        public EmployeeService(IEmployeeRepository employee)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmployeeRepository _employee;
+        public EmployeeService(IUnitOfWork unitOfWork,IEmployeeRepository employee)
 
         {
+            _unitOfWork = unitOfWork;
             _employee = employee;
         }
 
@@ -36,7 +37,8 @@ namespace GenericRepositoryTest.Services
         {
             var res = _employee.FirstOrDefault(f => f.Id == id);
             _employee.Delete(res);
-            
+            _unitOfWork.Commit();
+
         }
     }
 }

@@ -117,5 +117,23 @@ namespace GenericRepositoryTest.GenericRepository
             return _context.Database.ExecuteSqlRaw(sqlCommand, parameters);
         }
 
+        public IEnumerable<T> ExecStoreProcedure<T>(string sql, params object[] parameters) where T : class
+        {
+            return _context.Set<T>().FromSqlRaw(sql);
+        }
+        public IEnumerable<T> SQLQueryList<T>(string sql) where T : class
+        {
+            return _context.Set<T>().FromSqlRaw(sql);
+        }
+        public T SQLQuery<T>(string sql) where T : class
+        {
+            return _context.Set<T>().FromSqlRaw(sql).FirstOrDefault();
+        }
+
+        public T ExecuteScalar<T>(string sqlCommand, params object[] parameters) where T : class
+        {
+            return _context.Set<T>().FromSqlRaw(sqlCommand).FirstOrDefault();
+        }
+
     }
 }

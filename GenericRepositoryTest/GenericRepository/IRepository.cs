@@ -20,6 +20,7 @@ namespace GenericRepositoryTest.GenericRepository
 
         #endregion Command
 
+
         #region Query
         T Get(int id);
         T Get(Expression<Func<T, bool>> where);
