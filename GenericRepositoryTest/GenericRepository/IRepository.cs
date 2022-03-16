@@ -11,12 +11,7 @@ namespace GenericRepositoryTest.GenericRepository
         void Add(T entity);       
         void Update(T entity);        
         void Delete(T entity);        
-        void Delete(Expression<Func<T, bool>> where);
-
-        Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
-        Task DeleteAsync(Expression<Func<T, bool>> where);
+        void Delete(Expression<Func<T, bool>> where);        
 
         void AddMultiple(IEnumerable<T> list);
         void DeleteMultiple(IEnumerable<T> list);
