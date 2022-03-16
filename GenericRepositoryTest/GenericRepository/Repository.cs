@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using GenericRepositoryTest.Context;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,27 @@ namespace GenericRepositoryTest.GenericRepository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
+        //#region Without UoW
+        //DbContext _context;
+        //DbSet<T> _dbSet;
 
-        DbContext _context;
+        //public Repository(DbContext context)
+        //{
+        //    _context = context;
+        //    _dbSet = context.Set<T>();
+        //}
+        //#endregion Without UoW
+
+        #region UoW
+        ApplicationDBContext _context;
         DbSet<T> _dbSet;
-        public Repository(DbContext context)
+        
+        public Repository(ApplicationDBContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();
         }
+        #endregion UoU
         public void Add(T entity)
         {
             _dbSet.Add(entity);            
