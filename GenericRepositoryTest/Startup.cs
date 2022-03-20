@@ -39,14 +39,24 @@ namespace GenericRepositoryTest
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddMvc();
 
-            //     var builder = new ContainerBuilder();
-            //     var ass = Assembly.GetExecutingAssembly();
-            //     builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Repository"))
-            //.AsImplementedInterfaces();
-            //     builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Service"))
-            //.AsImplementedInterfaces();
+             #region Enable CORS for cross domain call
 
-            //     builder.Build();
+            //any origin
+            services.AddCors(options => options.AddPolicy("CORSPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+            }));
+
+            //Specefic origin
+            //services.AddCors(options => options.AddPolicy("CORSPolicy", builder =>
+            //{
+            //    builder.WithOrigins("http://example.com", "http://example.net")
+            //           .AllowAnyMethod()
+            //           .AllowAnyHeader();
+            //}));
+            #endregion Enable CORS for cross domain call
 
         }
 
@@ -65,6 +75,8 @@ namespace GenericRepositoryTest
 
             app.UseRouting();
 
+            app.UseCors("CORSPolicy");
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
