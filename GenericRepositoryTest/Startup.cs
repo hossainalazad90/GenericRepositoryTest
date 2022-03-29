@@ -1,10 +1,12 @@
 using Autofac;
 using GenericRepositoryTest.Context;
+using GenericRepositoryTest.Extentions;
 using GenericRepositoryTest.GenericRepository;
 using GenericRepositoryTest.Repositories;
 using GenericRepositoryTest.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,24 +41,8 @@ namespace GenericRepositoryTest
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddMvc();
 
-             #region Enable CORS for cross domain call
-
-            //any origin
-            services.AddCors(options => options.AddPolicy("CORSPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-            }));
-
-            //Specefic origin
-            //services.AddCors(options => options.AddPolicy("CORSPolicy", builder =>
-            //{
-            //    builder.WithOrigins("http://example.com", "http://example.net")
-            //           .AllowAnyMethod()
-            //           .AllowAnyHeader();
-            //}));
-            #endregion Enable CORS for cross domain call
+            services.ConfigureCors();
+            services.ConfigureIISIntegration();
 
         }
 
@@ -71,12 +57,19 @@ namespace GenericRepositoryTest
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
 
             app.UseRouting();
 
-            app.UseCors("CORSPolicy");
-            
+            app.UseCors("CORSPolicy");           
+
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
